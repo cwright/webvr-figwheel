@@ -1,6 +1,23 @@
-`-*- mode: markdown; mode: visual-line; mode: adaptive-wrap-prefix; -*-`
 
-# `threejs-figwheel`
+
+# `webvr-figwheel`
+
+This is a modification of [threejs-figwheel](https://github.com/cassiel/threejs-figwheel) that adds WebVR functionality, by way of [webvr-boilerplate](https://github.com/borismus/webvr-boilerplate)
+you can livecode to cardboard enabled devices and desktop based HMDs simultaneously. 
+It's pretty neat. 
+
+The instructions below from the threejs-figwheel README should work fine for setup, however I recommend 
+
+     rlwrap lein figwheel
+
+for a better REPL experience, if you're into that sort of thing.
+
+You will need [leiningen](http://leiningen.org/) if you haven't worked with clojurescript before.
+
+licence info at the bottom.
+
+# threejs-figwheel README
+
 
 An example project which brings up a minimal "live coding" environment for Clojure-based WebGL in the browser, courtesy of [ClojureScript](https://github.com/clojure/clojurescript), [three.js](http://threejs.org/) and [Figwheel](https://github.com/bhauman/lein-figwheel).
 
@@ -37,7 +54,19 @@ And open your browser in `resources/public/index.html`. You will not
 get live reloading, nor a REPL. 
 
 ## License
-
+threejs-figwheel is
 Copyright © 2015 Nick Rothwell, nick@cassiel.com.
 
 Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.
+
+
+
+webvr-boilerplate is included unmodified from its bower install and is distributed under the Apache 2.0 licence. 
+threejs-figwheel's license info is at the bottom of this page from it's original readme.
+
+webvr-figwheel is 
+Copyright © 2015 Colin Wright,  
+
+Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.
+
+let me know if I'm doing this wrong. 

@@ -1,7 +1,5 @@
 (ns ^:figwheel-always threejs-figwheel.core
-    (:require [figwheel.client :as fw]
-              three
-              stats))
+    (:require [figwheel.client :as fw]))
 
 (enable-console-print!)
 
@@ -39,7 +37,10 @@
                                               (/ (.-innerWidth js/window) (.-innerHeight js/window))
                                               0.1
                                               1000)
-          renderer (js/THREE.WebGLRenderer.)
+          renderer (js/THREE.WebGLRenderer. (js-obj "antialias" true))
+          controls (js/THREE.VRControls. camera)
+          effect (js/THREE.VREffect. renderer)
+          manager (js/WebVRManager. renderer effect (clj->js {:hideButton false}))
           geometry (js/THREE.BoxGeometry. 1 1 1)
           material (js/THREE.MeshBasicMaterial. (clj->js {:color 0x00FF00
                                                           :wireframe false}))
@@ -48,21 +49,25 @@
           RUNNING (atom true)]
       (set! (.-xxid renderer)
             (:c (swap! APP-STATE update :c inc)))
+      (.setPixelRatio renderer (.-devicePixelRatio js/window))
       (.setSize renderer (.-innerWidth js/window) (.-innerHeight js/window))
+      (.setSize effect (.-innerWidth js/window) (.-innerHeight js/window))
       (.log js/console "Adding: " (.-xxid renderer))
       (.appendChild (.-body js/document) (.-domElement renderer))
       (.add scene cube)
       (set! (.. camera -position -z) 3)
 
-      (letfn [(animate []
+      (letfn [(animate [timestamp]
                 (when @RUNNING (js/requestAnimationFrame animate))
                 (set! (.. cube -rotation -x)
                       (+ 0.01 (.. cube -rotation -x)))
                 (set! (.. cube -rotation -y)
                       (+ 0.01 (.. cube -rotation -y)))
-                (.render renderer scene camera)
-                (when-let [stats (:stats @APP-STATE)] (.update stats)))]
-        (animate)
+                (.update controls)
+                (.render manager scene camera timestamp)
+                ;;(.render renderer scene camera) 
+               (when-let [stats (:stats @APP-STATE)] (.update stats)))]
+        (animate 0)
         (swap! APP-STATE #(assoc %
                                  :renderer renderer
                                  :stopper (fn [] (reset! RUNNING false))))))))

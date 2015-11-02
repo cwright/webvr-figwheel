@@ -7,8 +7,67 @@
     <style>body {margin: 0;} canvas: {width: 100%;}</style>
   </head>
   <body>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.min.js"  type="text/javascript"></script> -->
-    <!-- <script src="http://rawgit.com/mrdoob/stats.js/master/build/stats.min.js" type="text/javascript"></script> -->
-    <script src="js/compiled/threejs_figwheel.js" type="text/javascript"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js"  type="text/javascript"></script> --->
+
+<script>
+/*
+ * Debug parameters.
+ */
+WebVRConfig = {
+  /**
+   * webvr-polyfill configuration
+   */
+
+  // Forces availability of VR mode.
+  FORCE_ENABLE_VR: true, // Default: false.
+  // Complementary filter coefficient. 0 for accelerometer, 1 for gyro.
+  //K_FILTER: 0.98, // Default: 0.98.
+  // How far into the future to predict during fast motion.
+  //PREDICTION_TIME_S: 0.050, // Default: 0.050s.
+
+  /**
+   * webvr-boilerplate configuration
+   */
+  // Forces distortion in VR mode.
+  //FORCE_DISTORTION: true, // Default: false.
+  // Override the distortion background color.
+  //DISTORTION_BGCOLOR: {x: 1, y: 0, z: 0, w: 1}, // Default: (0,0,0,1).
+};
+</script>
+
+<!--
+    three.js 3d library
+  -->
+<script src="bower_components/threejs/build/three.js"></script>
+
+<!-- 
+    FPS stats
+  -->
+<script src="js/stats.min.js" type="text/javascript"></script>
+
+<!--
+    VRControls.js acquires positional information from connected VR devices and applies the transformations to a three.js camera object.
+  -->
+<script src="bower_components/threejs/examples/js/controls/VRControls.js"></script>
+
+<!--
+    VREffect.js handles stereo camera setup and rendering.
+  -->
+<script src="bower_components/threejs/examples/js/effects/VREffect.js"></script>
+
+<!--
+    A polyfill for WebVR using the Device{Motion,Orientation}Event API.
+  -->
+<script src="bower_components/webvr-polyfill/build/webvr-polyfill.js"></script>
+
+<!--
+    Helps enter and exit VR mode, provides best practices while in VR.
+  -->
+<script src="bower_components/webvr-boilerplate/build/webvr-manager.js"></script>
+
+<script src="js/compiled/threejs_figwheel.js" type="text/javascript"></script>
+
+
+
   </body>
 </html>
